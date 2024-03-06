@@ -10,7 +10,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedAccount = false;
+
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 3;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+
+    options.User.RequireUniqueEmail = true;
+})
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
