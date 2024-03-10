@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WorkoutPlanSite.Data.Data.Models.Enums;
 using Type = WorkoutPlanSite.Data.Models.Type;
 
 namespace WorkoutPlanSite.Data.Models
@@ -17,6 +18,9 @@ namespace WorkoutPlanSite.Data.Models
         [Required]
         [Range(1, 50)]
         public double Weight { get; set; }
+
+        [Required]
+        public Plan Plan { get; set; }
 
         [Required]
         public int TypeId { get; set; }

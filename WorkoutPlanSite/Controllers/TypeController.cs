@@ -1,46 +1,38 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WorkoutPlanSite.Data.Data.Models.Enums;
-using WorkoutPlanSite.Services.Interfaces;
-using WorkoutPlanSite.Services.Services;
+using WorkoutPlanSite.Data;
 
 namespace WorkoutPlanSite.Controllers
 {
-    [Authorize]
-    public class EquipmentController : Controller
+    public class TypeController : Controller
     {
+        private readonly ApplicationDbContext context;
 
-        private readonly IEquipmentService equipmentService;
-        public EquipmentController(IEquipmentService equipmentService)
+        public TypeController(ApplicationDbContext context)
         {
-            this.equipmentService = equipmentService;
+            this.context = context;
         }
-        // GET: EquipmentController
-        public async Task<IActionResult> Index(string plan)
+        // GET: TypeController
+        public ActionResult Index()
         {
-
-            (await equipmentService.GetAllAsync()).Where(e => e.Plan == Enum.Parse<Plan>(plan));
             return View();
         }
 
-        // GET: EquipmentController/Details/5
+        // GET: TypeController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: EquipmentController/Create
-        [Authorize(Roles = "Administrator")]
+        // GET: TypeController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: EquipmentController/Create
+        // POST: TypeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -53,17 +45,15 @@ namespace WorkoutPlanSite.Controllers
             }
         }
 
-        // GET: EquipmentController/Edit/5
-        [Authorize(Roles = "Administrator")]
+        // GET: TypeController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: EquipmentController/Edit/5
+        // POST: TypeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -76,17 +66,15 @@ namespace WorkoutPlanSite.Controllers
             }
         }
 
-        // GET: EquipmentController/Delete/5
-        [Authorize(Roles = "Administrator")]
+        // GET: TypeController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: EquipmentController/Delete/5
+        // POST: TypeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
