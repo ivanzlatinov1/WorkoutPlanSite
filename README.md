@@ -1,4 +1,4 @@
-# **Workout Plan Hub**
+# *Workout Plan Hub*
 
 Welcome to *Workout Plan Hub*, your go-to platform for creating and customizing workout plans to achieve your fitness goals. Whether you're a beginner looking to kickstart your fitness journey or an experienced athlete aiming for specific results, Workout Plan Hub has you covered.
 
