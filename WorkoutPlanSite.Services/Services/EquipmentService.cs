@@ -88,5 +88,15 @@ namespace WorkoutPlanSite.Services.Services
             return dto;
 
         }
+
+        public async Task<TypeDTO[]> GetTypesAsync()
+        {
+            return await context.Types.Select(t => new TypeDTO()
+            {
+                Id = t.Id,
+                Name = t.Name,
+            })
+                .ToArrayAsync();
+        }
     }
 }

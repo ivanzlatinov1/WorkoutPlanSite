@@ -15,5 +15,6 @@ namespace WorkoutPlanSite.Services.Interfaces
         Task DeleteAsync(int id);
         Task<EquipmentDTO> GetByIdAsync(int id);
         Task<IEnumerable<EquipmentDTO>> GetAllAsync();
+        Task<TypeDTO[]> GetTypesAsync();
     }
 }

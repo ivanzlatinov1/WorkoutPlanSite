@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using WorkoutPlanSite.Data.Data.Models.Enums;
+using WorkoutPlanSite.Models.Equipment;
+using WorkoutPlanSite.Services.DTOs;
 using WorkoutPlanSite.Services.Interfaces;
 using WorkoutPlanSite.Services.Services;
 
@@ -19,84 +22,114 @@ namespace WorkoutPlanSite.Controllers
         // GET: EquipmentController
         public async Task<IActionResult> Index(string plan)
         {
-
-            (await equipmentService.GetAllAsync()).Where(e => e.Plan == Enum.Parse<Plan>(plan));
-            return View();
+            IEnumerable<EquipmentViewModel> equipments = (await equipmentService.GetAllAsync())
+                .Where(e => e.Plan == Enum.Parse<Plan>(plan))
+                .Select(e => new EquipmentViewModel
+                {
+                    Plan = e.Plan.ToString(),
+                    Id = e.Id,
+                    Name = e.Name,
+                    Weight = e.Weight,
+                    Type = e.Type.Name
+                });
+            return View(equipments);
         }
 
         // GET: EquipmentController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            EquipmentDTO dto = await equipmentService.GetByIdAsync(id);
+            EquipmentViewModel equipment = new()
+            {
+                Plan = dto.Plan.ToString(),
+                Id = dto.Id,
+                Name = dto.Name,
+                Weight = dto.Weight,
+                Type = dto.Type.Name
+            };
+            return View(equipment);
         }
 
         // GET: EquipmentController/Create
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            return View(new EquipmentInputModel() { Types = await equipmentService.GetTypesAsync() });
         }
 
         // POST: EquipmentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(EquipmentInputModel input)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                input.Types = await equipmentService.GetTypesAsync();
+                return View(input);
             }
-            catch
+            EquipmentDTO dto = new()
             {
-                return View();
-            }
+                Id = input.Id,
+                Name = input.Name,
+                Weight = input.Weight,
+                Plan = input.Plan,
+                TypeId = input.TypeId
+            };
+            await equipmentService.CreateAsync(dto);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: EquipmentController/Edit/5
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            EquipmentDTO dto = await equipmentService.GetByIdAsync(id);
+            EquipmentInputModel equipment = new()
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Weight = dto.Weight,
+                Plan = dto.Plan,
+                TypeId = dto.TypeId,
+                Types = await equipmentService.GetTypesAsync()
+            };
+            return View(equipment);
         }
 
         // POST: EquipmentController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(EquipmentInputModel input)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                input.Types = await equipmentService.GetTypesAsync();
+                return View(input);
             }
-            catch
+            EquipmentDTO dto = new()
             {
-                return View();
-            }
+                Id = input.Id,
+                Name = input.Name,
+                Weight = input.Weight,
+                Plan = input.Plan,
+                TypeId = input.TypeId
+            };
+            await equipmentService.EditAsync(dto);
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: EquipmentController/Delete/5
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+
 
         // POST: EquipmentController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await equipmentService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
