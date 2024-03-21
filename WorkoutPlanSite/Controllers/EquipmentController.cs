@@ -1,25 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 using WorkoutPlanSite.Data.Data.Models.Enums;
 using WorkoutPlanSite.Models.Equipment;
 using WorkoutPlanSite.Services.DTOs;
 using WorkoutPlanSite.Services.Interfaces;
-using WorkoutPlanSite.Services.Services;
 
 namespace WorkoutPlanSite.Controllers
 {
     [Authorize]
     public class EquipmentController : Controller
     {
-
         private readonly IEquipmentService equipmentService;
         public EquipmentController(IEquipmentService equipmentService)
         {
             this.equipmentService = equipmentService;
         }
-        // GET: EquipmentController
+
+        [HttpGet]
         public async Task<IActionResult> Index(string plan)
         {
             IEnumerable<EquipmentViewModel> equipments = (await equipmentService.GetAllAsync())
@@ -35,7 +32,7 @@ namespace WorkoutPlanSite.Controllers
             return View(equipments);
         }
 
-        // GET: EquipmentController/Details/5
+        [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
             EquipmentDTO dto = await equipmentService.GetByIdAsync(id);
@@ -50,17 +47,16 @@ namespace WorkoutPlanSite.Controllers
             return View(equipment);
         }
 
-        // GET: EquipmentController/Create
-        [Authorize(Roles = "Administrator")]
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             return View(new EquipmentInputModel() { Types = await equipmentService.GetTypesAsync() });
         }
 
-        // POST: EquipmentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         public async Task<IActionResult> Create(EquipmentInputModel input)
         {
             if (!ModelState.IsValid)
@@ -80,7 +76,7 @@ namespace WorkoutPlanSite.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: EquipmentController/Edit/5
+        [HttpGet]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -97,7 +93,6 @@ namespace WorkoutPlanSite.Controllers
             return View(equipment);
         }
 
-        // POST: EquipmentController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
@@ -121,8 +116,6 @@ namespace WorkoutPlanSite.Controllers
         }
 
 
-
-        // POST: EquipmentController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]

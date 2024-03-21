@@ -21,7 +21,7 @@ namespace WorkoutPlanSite.Services.DTOs
         public string Description { get; set; } = null!;
 
         [Required]
-        [Range(1, 10)]
+        [Range(1, 120)]
         public int Duration { get; set; }
 
         [Required]

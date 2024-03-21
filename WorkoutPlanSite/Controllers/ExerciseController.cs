@@ -1,47 +1,71 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.CodeDom;
-using WorkoutPlanSite.Data;
-using WorkoutPlanSite.Data.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using WorkoutPlanSite.Models.Exercise;
+using WorkoutPlanSite.Services.DTOs;
+using WorkoutPlanSite.Services.Interfaces;
 
 namespace WorkoutPlanSite.Controllers
 {
     public class ExerciseController : Controller
     {
-        private readonly ApplicationDbContext context;
-
-        public ExerciseController(ApplicationDbContext context)
+        private readonly IExerciseService exerciseService;
+        public ExerciseController(IExerciseService exerciseService)
         {
-            this.context = context;
+            this.exerciseService = exerciseService;
         }
         public async Task<IActionResult> Index()
         {
-            var exercises = await context.Exercises.ToArrayAsync();
+            IEnumerable<ExerciseDTO> exercises = await exerciseService.GetAllAsync();
+            ExerciseViewModel[] exerciseViews = exercises.Select(x => new ExerciseViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Duration = x.Duration,
+                EquipmentId = x.EquipmentId,
+                EquipmentName = x.Equipment.Name,
+            })
+                .ToArray();
             return View(exercises);
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var exercise = context.Exercises.FindAsync(id);
-            return View(exercise);
+            ExerciseDTO exercise = await exerciseService.GetByIdAsync(id);
+            ExerciseViewModel exerciseViewModel = new ExerciseViewModel()
+            {
+                Id = id,
+                Name = exercise.Name,
+                Description = exercise.Description,
+                Duration = exercise.Duration,
+                EquipmentId = exercise.EquipmentId,
+                EquipmentName = exercise.Equipment.Name,
+            };
+            return View(exerciseViewModel);
         }
 
-        public ActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
-            var exercise = new Exercise();
+            var exercise = new ExerciseInputModel();
             return View(exercise);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Exercise exercise)
+        public async Task<IActionResult> Create(ExerciseInputModel exercise)
         {
             try
             {
-                await context.Exercises.AddAsync(exercise);
-                await context.SaveChangesAsync();
+                ExerciseDTO dto = new ExerciseDTO()
+                {
+                    Id = exercise.Id,
+                    Name = exercise.Name,
+                    Description = exercise.Description,
+                    Duration = exercise.Duration,
+                    EquipmentId = exercise.EquipmentId,
+                };
+                await exerciseService.CreateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -53,22 +77,34 @@ namespace WorkoutPlanSite.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-           Exercise? exercise = await context.Exercises.FindAsync(id);
-            if(exercise == null)
+            ExerciseDTO exercise = await exerciseService.GetByIdAsync(id);
+            ExerciseInputModel exerciseInput = new ExerciseInputModel()
             {
-                return BadRequest($"Exercise with id {id} does not exist.");
-            }
-            return View(exercise);
+                Id = exercise.Id,
+                Name = exercise.Name,
+                Description = exercise.Description,
+                Duration = exercise.Duration,
+                EquipmentId = exercise.EquipmentId,
+            };
+            return View(exerciseInput);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Exercise exercise)
+        public async Task<IActionResult> Edit(ExerciseInputModel exercise)
         {
             try
             {
-                await context.SaveChangesAsync();
+                ExerciseDTO dto = new ExerciseDTO()
+                {
+                    Id = exercise.Id,
+                    Name = exercise.Name,
+                    Description = exercise.Description,
+                    Duration = exercise.Duration,
+                    EquipmentId = exercise.EquipmentId,
+                };
+                await exerciseService.EditAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -77,27 +113,12 @@ namespace WorkoutPlanSite.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var exercise = await context.Exercises.FindAsync(id);
-            return View(exercise);
-        }
-
- 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, Exercise exercise)
-        {
-            try
-            {
-                context.Exercises.Remove(exercise);
-                await context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View(exercise);
-            }
+            await exerciseService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

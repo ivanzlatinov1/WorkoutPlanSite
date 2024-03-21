@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WorkoutPlanSite.Data;
 using WorkoutPlanSite.Models;
-using Type = WorkoutPlanSite.Data.Models.Type;
 
 namespace WorkoutPlanSite.Controllers
 {

@@ -1,90 +1,112 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using WorkoutPlanSite.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using WorkoutPlanSite.Models.Type;
+using WorkoutPlanSite.Services.DTOs;
+using WorkoutPlanSite.Services.Interfaces;
 
 namespace WorkoutPlanSite.Controllers
 {
     public class TypeController : Controller
     {
-        private readonly ApplicationDbContext context;
+        private readonly ITypeService typeService;
 
-        public TypeController(ApplicationDbContext context)
+        public TypeController(ITypeService typeService)
         {
-            this.context = context;
-        }
-        // GET: TypeController
-        public ActionResult Index()
-        {
-            return View();
+            this.typeService = typeService;
         }
 
-        // GET: TypeController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<TypeDTO> types = await typeService.GetAllAsync();
+            TypeViewModel[] typeViews = types.Select(x => new TypeViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+            })
+                .ToArray();
+            return View(typeViews);
         }
 
-        // GET: TypeController/Create
-        public ActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            TypeDTO type = await typeService.GetByIdAsync(id);
+            TypeViewModel typeViewModel = new TypeViewModel()
+            {
+               Id= id,
+               Name = type.Name,
+            };
+            return View(typeViewModel);
         }
 
-        // POST: TypeController/Create
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var types = new TypeInputModel();
+            return View(types);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(TypeInputModel type)
         {
             try
             {
+                TypeDTO dto = new TypeDTO()
+                {
+                    Id = type.Id,
+                    Name = type.Name,
+                };
+                await typeService.CreateAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(type);
             }
         }
 
-        // GET: TypeController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            TypeDTO type = await typeService.GetByIdAsync(id);
+            TypeInputModel typeInput = new()
+            {
+                Id = type.Id,
+                Name = type.Name,
+                Equipments = type.Equipments,
+            };
+            return View(typeInput);
         }
 
-        // POST: TypeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(TypeInputModel type)
         {
             try
             {
+                TypeDTO dto = new TypeDTO()
+                {
+                    Id = type.Id,
+                    Name = type.Name,
+                    Equipments = type.Equipments
+                };
+                await typeService.EditAsync(dto);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(type);
             }
         }
 
-        // GET: TypeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: TypeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await typeService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
