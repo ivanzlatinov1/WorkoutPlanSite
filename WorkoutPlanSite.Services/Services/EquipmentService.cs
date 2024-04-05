@@ -25,6 +25,7 @@ namespace WorkoutPlanSite.Services.Services
                 Name = dto.Name,
                 TypeId = dto.TypeId,
                 Weight = dto.Weight,
+                ImageUrl = dto.ImageUrl
             };
 
             await context.Equipments.AddAsync(equipment);
@@ -48,6 +49,7 @@ namespace WorkoutPlanSite.Services.Services
             equipment.Name = dto.Name;
             equipment.Weight = dto.Weight;
             equipment.TypeId = dto.TypeId;
+            equipment.ImageUrl = dto.ImageUrl;
             await context.SaveChangesAsync();
         }
 
@@ -64,7 +66,8 @@ namespace WorkoutPlanSite.Services.Services
                     {
                         Id = e.Type.Id,
                         Name = e.Type.Name,
-                    }
+                    },
+                    ImageUrl = e.ImageUrl
                 })
                 .ToArrayAsync();
         }
@@ -83,7 +86,8 @@ namespace WorkoutPlanSite.Services.Services
                 {
                     Id = equipment.Type.Id,
                     Name = equipment.Type.Name,
-                }
+                },
+                ImageUrl = equipment.ImageUrl
             };
             return dto;
 

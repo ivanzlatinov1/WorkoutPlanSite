@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WorkoutPlanSite.Data.Data.Models.Enums;
-using Type = WorkoutPlanSite.Data.Models.Type;
 
 namespace WorkoutPlanSite.Data.Models
 {
@@ -26,6 +25,9 @@ namespace WorkoutPlanSite.Data.Models
         [Required]
         [ForeignKey(nameof(TypeId))]
         public Type Type { get; set; } = null!;
+
+        [Url]
+        public string? ImageUrl { get; set; }
 
 
     }

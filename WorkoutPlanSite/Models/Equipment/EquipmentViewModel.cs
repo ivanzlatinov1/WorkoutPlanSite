@@ -12,5 +12,6 @@
 
         public string Type{ get; set; } = null!;
 
+        public string? ImageUrl { get; set; }
     }
 }

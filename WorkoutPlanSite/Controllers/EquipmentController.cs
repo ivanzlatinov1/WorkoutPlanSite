@@ -26,7 +26,8 @@ namespace WorkoutPlanSite.Controllers
                 Id = e.Id,
                 Name = e.Name,
                 Weight = e.Weight,
-                Type = e.Type.Name
+                Type = e.Type.Name,
+                ImageUrl = e.ImageUrl
             });
 
             if(plan != null)
@@ -47,7 +48,8 @@ namespace WorkoutPlanSite.Controllers
                 Id = dto.Id,
                 Name = dto.Name,
                 Weight = dto.Weight,
-                Type = dto.Type.Name
+                Type = dto.Type.Name,
+                ImageUrl = dto.ImageUrl
             };
             return View(equipment);
         }
@@ -67,7 +69,6 @@ namespace WorkoutPlanSite.Controllers
         [Authorize]
         public async Task<IActionResult> Create(EquipmentInputModel input)
         {
-
             if (!ModelState.IsValid)
             {
                 input.Types = await equipmentService.GetTypesAsync();
@@ -79,16 +80,19 @@ namespace WorkoutPlanSite.Controllers
                 Name = input.Name,
                 Weight = input.Weight,
                 Plan = input.Plan,
-                TypeId = input.TypeId
+                TypeId = input.TypeId,
+                ImageUrl = input.ImageUrl
             };
             await equipmentService.CreateAsync(dto);
             return RedirectToAction(nameof(Index), new {plan = input.Plan});
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id)
         {
+            Array plans = typeof(Plan).GetEnumValues();
+            ViewBag.Plans = (Plan[])plans;
+
             EquipmentDTO dto = await equipmentService.GetByIdAsync(id);
             EquipmentInputModel equipment = new()
             {
@@ -97,14 +101,14 @@ namespace WorkoutPlanSite.Controllers
                 Weight = dto.Weight,
                 Plan = dto.Plan,
                 TypeId = dto.TypeId,
-                Types = await equipmentService.GetTypesAsync()
+                Types = await equipmentService.GetTypesAsync(),
+                ImageUrl = dto.ImageUrl
             };
             return View(equipment);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(EquipmentInputModel input)
         {
             if (!ModelState.IsValid)
@@ -118,7 +122,8 @@ namespace WorkoutPlanSite.Controllers
                 Name = input.Name,
                 Weight = input.Weight,
                 Plan = input.Plan,
-                TypeId = input.TypeId
+                TypeId = input.TypeId,
+                ImageUrl = input.ImageUrl
             };
             await equipmentService.EditAsync(dto);
             return RedirectToAction(nameof(Index));
@@ -127,7 +132,6 @@ namespace WorkoutPlanSite.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             await equipmentService.DeleteAsync(id);

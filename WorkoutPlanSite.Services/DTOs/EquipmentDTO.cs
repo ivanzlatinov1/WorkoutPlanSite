@@ -29,6 +29,9 @@ namespace WorkoutPlanSite.Services.DTOs
 
         [Required]
         public TypeDTO Type { get; set; } = null!;
-        
+
+        [Url]
+        public string? ImageUrl { get; set; }
+
     }
 }

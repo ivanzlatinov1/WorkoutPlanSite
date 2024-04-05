@@ -27,5 +27,9 @@ namespace WorkoutPlanSite.Models.Equipment
         public int TypeId { get; set; }
 
         public TypeDTO[]? Types { get; set; }
+
+        [Url]
+        [Display(Name = "Image link")]
+        public string? ImageUrl { get; set; }
     }
 }

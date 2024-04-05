@@ -2,53 +2,11 @@
 @model EquipmentInputModel
 @{
     ViewData["Title"] = "Creating equipment";
-    Plan[] plans = ViewBag.Plans;
+    ViewBag.Action = "Create";
 }
 
 <h2 class="text-center mb-2">@ViewData["Title"]</h2>
 <hr />
-
 <div class="container">
-    <form method="post" asp-controller="Equipment" asp-action="Create">
-        <div class="row justify-content-center">
-            <div class="col-3">
-                <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" placeholder="Type your name" />
-                <span asp-validation-for="Name" class="small text-danger"></span>
-            </div>
-            <div class="col-3">
-                <label asp-for="Weight" class="form-label"></label>
-                <input asp-for="Weight" class="form-control" placeholder="Type your weight" />
-                <span asp-validation-for="Weight" class="small text-danger"></span>
-            </div>
-        </div>
-        <div class="row mt-3 justify-content-center">
-            <div class="col-3">
-                <label asp-for="TypeId" class="form-label"></label>
-                <select asp-for="TypeId" class="form-control">
-                    <option value="@null" selected>No equipment</option>
-                    @foreach (TypeDTO type in Model.Types)
-                    {
-                        <option value="@type.Id">@type.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="TypeId" class="small text-danger"></span>
-            </div>
-            <div class="col-3">
-                <label asp-for="Plan" class="form-label"></label>
-                <select asp-for="Plan" class="form-control">
-                    @foreach (Plan plan in plans)
-                    {
-                        <option value="@(plan)">@plan.ToString()</option>
-                    }
-                </select>
-                <span asp-validation-for="Plan" class="small text-danger"></span>
-            </div>
-        </div>
-        <div class="row mt-3 justify-content-center">
-            <div class="col-auto">
-                <input class="btn btn-primary" type="submit" />
-            </div>
-        </div>
-    </form>
+   <partial name="_EquipmentFormPartial" model="@Model" view-data="ViewData" />
 </div>
