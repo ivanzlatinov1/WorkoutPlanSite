@@ -1,3 +1,28 @@
 ﻿@model IEnumerable<EquipmentViewModel>
 @{
+    ViewData["Title"] = "Equipments";
 }
+
+<h2 class="text-center mb-2">@ViewData["Title"]</h2>
+<hr />
+
+<div class="d-flex justify-content-center mb-2">
+    <a class="btn btn-primary" asp-controller="Equipment" asp-action="Create">Add exercise</a>
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-center">There are no equipments yet.</p>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+            @foreach (EquipmentViewModel equipment in Model)
+            {
+                <partial name="_EquipmentsPartial" model="equipment"/>
+            }
+        </div>
+    </div>
+}
+

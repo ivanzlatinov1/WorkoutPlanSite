@@ -17,19 +17,24 @@ namespace WorkoutPlanSite.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string plan)
+        public async Task<IActionResult> Index(string? plan = null)
         {
-            IEnumerable<EquipmentViewModel> equipments = (await equipmentService.GetAllAsync())
-                .Where(e => e.Plan == Enum.Parse<Plan>(plan))
-                .Select(e => new EquipmentViewModel
-                {
-                    Plan = e.Plan.ToString(),
-                    Id = e.Id,
-                    Name = e.Name,
-                    Weight = e.Weight,
-                    Type = e.Type.Name
-                });
-            return View(equipments);
+            IEnumerable<EquipmentDTO> equipments = await equipmentService.GetAllAsync();
+            IEnumerable<EquipmentViewModel> views = equipments.Select(e => new EquipmentViewModel
+            {
+                Plan = e.Plan.ToString(),
+                Id = e.Id,
+                Name = e.Name,
+                Weight = e.Weight,
+                Type = e.Type.Name
+            });
+
+            if(plan != null)
+            {
+                views = views.Where(e => e.Plan == plan);
+            }
+
+            return View(views);
         }
 
         [HttpGet]
@@ -51,6 +56,9 @@ namespace WorkoutPlanSite.Controllers
         [Authorize]
         public async Task<IActionResult> Create()
         {
+            Array plans = typeof(Plan).GetEnumValues();
+            ViewBag.Plans = (Plan[])plans;
+
             return View(new EquipmentInputModel() { Types = await equipmentService.GetTypesAsync() });
         }
 
@@ -59,6 +67,7 @@ namespace WorkoutPlanSite.Controllers
         [Authorize]
         public async Task<IActionResult> Create(EquipmentInputModel input)
         {
+
             if (!ModelState.IsValid)
             {
                 input.Types = await equipmentService.GetTypesAsync();
@@ -73,7 +82,7 @@ namespace WorkoutPlanSite.Controllers
                 TypeId = input.TypeId
             };
             await equipmentService.CreateAsync(dto);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {plan = input.Plan});
         }
 
         [HttpGet]

@@ -18,8 +18,8 @@ namespace WorkoutPlanSite.Services.DTOs
         public string Name { get; set; } = null!;
 
         [Required]
-        [Range(1, 50)]
-        public double Weight { get; set; }
+        [Range(1, 220)]
+        public double? Weight { get; set; }
 
         [Required]
         public Plan Plan { get; set; }

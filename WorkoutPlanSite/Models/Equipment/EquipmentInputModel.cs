@@ -8,25 +8,24 @@ namespace WorkoutPlanSite.Models.Equipment
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The name field is required.")]
         [StringLength(20, MinimumLength = 2)]
         [Display(Name = "Name")]
         public string Name { get; set; } = null!;
 
-        [Required]
-        [Range(1, 50)]
+        [Required(ErrorMessage = "Weight is required.")]
+        [Range(1, 220)]
         [Display(Name = "Weight")]
-        public double Weight { get; set; }
+        public double? Weight { get; set; }
 
-        [Required]
+        [Required]  
         [Display(Name = "Plan")]
-
         public Plan Plan { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Type is required.")]
         [Display(Name = "Type")]
         public int TypeId { get; set; }
 
-        public TypeDTO[] Types { get; set; } = null!;
+        public TypeDTO[]? Types { get; set; }
     }
 }
