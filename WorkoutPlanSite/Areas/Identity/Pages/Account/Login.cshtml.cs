@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using WorkoutPlanSite.Data;
 
 namespace WorkoutPlanSite.Areas.Identity.Pages.Account
 {
@@ -21,11 +22,13 @@ namespace WorkoutPlanSite.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
        
@@ -46,14 +49,14 @@ namespace WorkoutPlanSite.Areas.Identity.Pages.Account
         {
 
             [Required(ErrorMessage = "Invalid username.")]
-            [StringLength(20, MinimumLength = 2)]
+            [StringLength(40, MinimumLength = 2)]
             [Display(Name = "Username")]
             public string Username { get; set; } = null!;
 
-            [Required(ErrorMessage = "Invalid email address.")]
+           /* [Required(ErrorMessage = "Invalid email address.")]
             [StringLength(30, MinimumLength = 7)]
             [EmailAddress]
-            public string Email { get; set; } = null!;
+            public string Email { get; set; } = null!;  */
 
             [Required(ErrorMessage = "Invalid password.")]
             [StringLength(30, MinimumLength = 3)]
@@ -89,9 +92,26 @@ namespace WorkoutPlanSite.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                var user = await _userManager.FindByEmailAsync(Input.Username);
+                if (user == null)
+                {
+                    user = await _userManager.FindByNameAsync(Input.Username);
+                }
+
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, isPersistent: false, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
+                }
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
+            }
+
+          /*  var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -111,7 +131,7 @@ namespace WorkoutPlanSite.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
-            }
+            } */
 
             // If we got this far, something failed, redisplay form
             return Page();
