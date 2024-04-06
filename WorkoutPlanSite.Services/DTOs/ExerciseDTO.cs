@@ -22,8 +22,12 @@ namespace WorkoutPlanSite.Services.DTOs
         public string Description { get; set; } = null!;
 
         [Required]
-        [Range(1, 120)]
-        public int Duration { get; set; }
+        [Range(1, 20)]
+        public int Sets { get; set; }
+
+        [Required]
+        [Range(1, 100)]
+        public int Repetitions { get; set; }
 
         [Required]
         public ExerciseDifficulty difficulty { get; set; }

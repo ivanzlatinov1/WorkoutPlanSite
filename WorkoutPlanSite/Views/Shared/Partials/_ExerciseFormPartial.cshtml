@@ -4,20 +4,26 @@
     string action = ViewBag.Action;
 }
 
-<form method="post" asp-controller="Equipment" asp-action="@action">
+<form method="post" asp-controller="Exercise" asp-action="@action">
     <div class="row justify-content-center">
         <div class="col-3 text-center fw-bold">
             <label asp-for="Name" class="form-label"></label>
             <input asp-for="Name" class="form-control" placeholder="Type the name of the exercise" />
             <span asp-validation-for="Name" class="small text-danger"></span>
         </div>
-        <div class="col-3 text-center fw-bold">
-            <label asp-for="Duration" class="form-label"></label>
+        <div class="col-1 text-center fw-bold">
+            <label asp-for="Sets" class="form-label"></label>
             <div class="input-group">
-                <input asp-for="Duration" class="form-control" placeholder="Enter a duration of the exercise" />
-                <span class="input-group-text" style="min-width: 130px">seconds</span>
+                <input asp-for="Sets" class="form-control" placeholder="Enter sets" />
             </div>
-            <span asp-validation-for="Duration" class="small text-danger"></span>
+            <span asp-validation-for="Sets" class="small text-danger"></span>
+        </div>
+        <div class="col-1 text-center fw-bold">
+            <label asp-for="Repetitions" class="form-label"></label>
+            <div class="input-group">
+                <input asp-for="Repetitions" class="form-control" placeholder="Enter repetitions" />
+            </div>
+            <span asp-validation-for="Repetitions" class="small text-danger"></span>
         </div>
 
     </div>

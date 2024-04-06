@@ -24,7 +24,8 @@ namespace WorkoutPlanSite.Services.Services
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                Duration = dto.Duration,
+                Sets = dto.Sets,
+                Repetitions = dto.Repetitions,
                 EquipmentId = dto.EquipmentId,
                 ImageURL = dto.ImageURL
             };
@@ -49,7 +50,8 @@ namespace WorkoutPlanSite.Services.Services
                  ?? throw new KeyNotFoundException($"Exercise with id: {dto.Id} does not exist.");
             exercise.Name = dto.Name;
             exercise.Description = dto.Description;
-            exercise.Duration = dto.Duration;
+            exercise.Sets = dto.Sets;
+            exercise.Repetitions = dto.Repetitions;
             exercise.EquipmentId = dto.EquipmentId;
             exercise.ImageURL = dto.ImageURL;
             await context.SaveChangesAsync();
@@ -63,7 +65,8 @@ namespace WorkoutPlanSite.Services.Services
                     Id = e.Id,
                     Name = e.Name,
                     Description = e.Description,
-                    Duration = e.Duration,
+                    Sets = e.Sets,
+                    Repetitions = e.Repetitions,
                     EquipmentId = e.EquipmentId,
                     Equipment = new EquipmentDTO()
                     {
@@ -86,7 +89,8 @@ namespace WorkoutPlanSite.Services.Services
                 Id = exercise.Id,
                 Name = exercise.Name,
                 Description = exercise.Description,
-                Duration = exercise.Duration,
+                Sets = exercise.Sets,
+                Repetitions = exercise.Repetitions,
                 EquipmentId = exercise.EquipmentId,
                 Equipment = new EquipmentDTO()
                 {

@@ -26,7 +26,8 @@ namespace WorkoutPlanSite.Controllers
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
-                Duration = x.Duration,
+                Sets = x.Sets,
+                Repetitions = x.Repetitions,
                 EquipmentId = x.EquipmentId,
                 EquipmentName = x.Equipment.Name,
                 ImageURL = x.ImageURL,
@@ -44,11 +45,13 @@ namespace WorkoutPlanSite.Controllers
                 Id = id,
                 Name = exercise.Name,
                 Description = exercise.Description,
-                Duration = exercise.Duration,
+                Sets = exercise.Sets,
+                Repetitions= exercise.Repetitions,
                 EquipmentId = exercise.EquipmentId,
                 EquipmentName = exercise.Equipment.Name,
                 ImageURL = exercise.ImageURL,
             };
+
             return View(exerciseViewModel);
         }
 
@@ -84,7 +87,8 @@ namespace WorkoutPlanSite.Controllers
                     Id = exercise.Id,
                     Name = exercise.Name,
                     Description = exercise.Description,
-                    Duration = exercise.Duration,
+                    Sets = exercise.Sets,
+                    Repetitions = exercise.Repetitions,
                     difficulty = exercise.Difficulty,
                     EquipmentId = exercise.EquipmentId,
                     ImageURL = exercise.ImageURL,
@@ -107,7 +111,8 @@ namespace WorkoutPlanSite.Controllers
                 Id = exercise.Id,
                 Name = exercise.Name,
                 Description = exercise.Description,
-                Duration = exercise.Duration,
+                Sets = exercise.Sets,
+                Repetitions= exercise.Repetitions,
                 EquipmentId = exercise.EquipmentId,
                 ImageURL = exercise.ImageURL,
             };
@@ -126,7 +131,8 @@ namespace WorkoutPlanSite.Controllers
                     Id = exercise.Id,
                     Name = exercise.Name,
                     Description = exercise.Description,
-                    Duration = exercise.Duration,
+                    Sets = exercise.Sets,
+                    Repetitions= exercise.Repetitions,
                     EquipmentId = exercise.EquipmentId,
                     ImageURL = exercise.ImageURL,
                 };

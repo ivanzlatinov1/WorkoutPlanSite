@@ -1,6 +1,10 @@
 ﻿@model EquipmentInputModel
 @{
     Plan[] plans = ViewBag.Plans;
+    if (ViewBag.Plans == null)
+    {
+        <p>ViewBag.Plans is null!</p>
+    }
     string action = ViewBag.Action;
 }
 
@@ -24,6 +28,10 @@
                 <option value="@null" selected>No type</option>
                 @foreach (TypeDTO type in Model.Types)
                 {
+                    @if (Model.Types == null)
+                    {
+                        <p>Model.Types is null!</p>
+                    }
                     <option value="@type.Id">@type.Name</option>
                 }
             </select>
@@ -32,13 +40,10 @@
         <div class="col-3 text-center fw-bold">
             <label asp-for="Plan" class="form-label"></label>
             <select asp-for="Plan" class="form-control">
-                @if (plans != null)
-                {
                     @foreach (Plan plan in plans)
                     {
-                        <option value="@(plan)">@plan.ToString()</option>
+                        <option value="@plan">@plan.ToString()</option>
                     }
-                }
             </select>
             <span asp-validation-for="Plan" class="small text-danger"></span>
         </div>

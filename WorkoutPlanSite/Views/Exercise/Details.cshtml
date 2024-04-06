@@ -1,3 +1,34 @@
 ﻿@model ExerciseViewModel
 @{
+    ViewData["Title"] = "Details";
 }
+
+<head>
+    <link rel="stylesheet" href="~/site.css" />
+</head>
+
+<div class="container-lg">
+    <div class="card">
+        <div class="card-header">@Model.Name</div>
+        <div class="card-body">
+
+            <div class="form-container">
+                <div class="form-gap">
+                    <label class="form-label" for="description">Description:</label>
+                    <input class="form-label" type="text" id="description" name="description" value="@Model.Description" readonly>
+                    <label class="form-label" for="weight">Name:</label>
+                    <input class="form-label" type="text" id="weight" name="weight" value="@Model.Name" readonly>
+                    <img src="@Model.ImageURL" class="image-size image-margin" />
+                </div>
+
+            </div>
+            <form class="align-content-lg-around">
+                <a class="btn btn-warning mt-2" asp-controller="Exercise" asp-action="Edit" asp-route-id="@Model.Id">Click to edit</a>
+            </form>
+            <form asp-controller="Exercise" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+                <input type="submit" class="btn btn-danger mt-2" value="Delete" />
+            </form>
+        </div>
+        <div class="card-footer">This exercise is using @Model.EquipmentName</div>
+    </div>
+</div>

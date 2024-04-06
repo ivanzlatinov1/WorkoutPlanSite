@@ -10,7 +10,9 @@ namespace WorkoutPlanSite.Models.Exercise
 
         public string Description { get; set; } = null!;
 
-        public int Duration { get; set; }
+        public int Sets { get; set; }
+
+        public int Repetitions { get; set; }
 
         public string Difficulty { get; set; } = null!;
 

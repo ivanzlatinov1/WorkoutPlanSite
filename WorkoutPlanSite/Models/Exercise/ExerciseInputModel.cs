@@ -10,7 +10,7 @@ namespace WorkoutPlanSite.Models.Exercise
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The name field is required.")]
-        [StringLength(20, MinimumLength = 2)]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Invalid length!")]
         [Display(Name = "Name")]
         public string Name { get; set; } = null!;
 
@@ -20,9 +20,14 @@ namespace WorkoutPlanSite.Models.Exercise
         public string Description { get; set; } = null!;
 
         [Required(ErrorMessage = "Duration is required.")]
-        [Range(1, 120)]
-        [Display(Name = "Duration")]
-        public int Duration { get; set; }
+        [Range(1, 20, ErrorMessage = "Invalid number!")]
+        [Display(Name = "Sets")]
+        public int Sets { get; set; }
+
+        [Required(ErrorMessage = "Duration is required.")]
+        [Range(1, 100, ErrorMessage = "Invalid number!")]
+        [Display(Name = "Reps")]
+        public int Repetitions { get; set; }
 
         [Required(ErrorMessage = "Exercise difficulty is required.")]
         [Display(Name = "Difficulty")]
