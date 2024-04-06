@@ -59,9 +59,11 @@ namespace WorkoutPlanSite.Controllers
         public async Task<IActionResult> Create()
         {
             Array plans = typeof(Plan).GetEnumValues();
-            ViewBag.Plans = (Plan[])plans;
 
-            return View(new EquipmentInputModel() { Types = await equipmentService.GetTypesAsync() });
+            return View(new EquipmentInputModel() {
+                Types = await equipmentService.GetTypesAsync(),
+                Plans = (Plan[])plans
+            });
         }
 
         [HttpPost]
@@ -71,6 +73,9 @@ namespace WorkoutPlanSite.Controllers
         {
             if (!ModelState.IsValid)
             {
+                Array plans = typeof(Plan).GetEnumValues();
+                input.Plans = (Plan[])plans;
+
                 input.Types = await equipmentService.GetTypesAsync();
                 return View(input);
             }
@@ -91,7 +96,6 @@ namespace WorkoutPlanSite.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Array plans = typeof(Plan).GetEnumValues();
-            ViewBag.Plans = (Plan[])plans;
 
             EquipmentDTO dto = await equipmentService.GetByIdAsync(id);
             EquipmentInputModel equipment = new()
@@ -102,7 +106,8 @@ namespace WorkoutPlanSite.Controllers
                 Plan = dto.Plan,
                 TypeId = dto.TypeId,
                 Types = await equipmentService.GetTypesAsync(),
-                ImageUrl = dto.ImageUrl
+                ImageUrl = dto.ImageUrl,
+                Plans = (Plan[])plans
             };
             return View(equipment);
         }
@@ -113,6 +118,9 @@ namespace WorkoutPlanSite.Controllers
         {
             if (!ModelState.IsValid)
             {
+                Array plans = typeof(Plan).GetEnumValues();
+                ViewBag.Plans = (Plan[])plans;
+
                 input.Types = await equipmentService.GetTypesAsync();
                 return View(input);
             }

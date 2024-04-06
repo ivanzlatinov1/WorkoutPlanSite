@@ -31,5 +31,7 @@ namespace WorkoutPlanSite.Models.Equipment
         [Url]
         [Display(Name = "Image link")]
         public string? ImageUrl { get; set; }
+
+        public Plan[]? Plans { get; set; }
     }
 }

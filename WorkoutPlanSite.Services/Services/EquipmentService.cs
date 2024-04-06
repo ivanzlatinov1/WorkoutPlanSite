@@ -24,6 +24,7 @@ namespace WorkoutPlanSite.Services.Services
             {
                 Name = dto.Name,
                 TypeId = dto.TypeId,
+                Plan = dto.Plan,
                 Weight = dto.Weight,
                 ImageUrl = dto.ImageUrl
             };
@@ -48,6 +49,7 @@ namespace WorkoutPlanSite.Services.Services
                 ?? throw new KeyNotFoundException($"Equipment with id: {dto.Id} does not exist.");
             equipment.Name = dto.Name;
             equipment.Weight = dto.Weight;
+            equipment.Plan = dto.Plan;
             equipment.TypeId = dto.TypeId;
             equipment.ImageUrl = dto.ImageUrl;
             await context.SaveChangesAsync();
@@ -62,6 +64,7 @@ namespace WorkoutPlanSite.Services.Services
                     Name = e.Name,
                     TypeId = e.TypeId,
                     Weight = e.Weight,
+                    Plan = e.Plan,
                     Type = new TypeDTO()
                     {
                         Id = e.Type.Id,
@@ -82,6 +85,7 @@ namespace WorkoutPlanSite.Services.Services
                 Name = equipment.Name,
                 TypeId = equipment.TypeId,
                 Weight = equipment.Weight,
+                Plan = equipment.Plan,
                 Type = new TypeDTO()
                 {
                     Id = equipment.Type.Id,

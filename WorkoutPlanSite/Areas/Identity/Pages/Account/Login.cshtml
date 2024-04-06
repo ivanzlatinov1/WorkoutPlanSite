@@ -16,7 +16,7 @@
     <div class="col-md-4 mx-auto">
         <section>
             <form id="account" method="post">
-                <h2 class="row justify-content-center">@ViewData["Title"]</h2>
+                <h2 class="row justify-content-center text-white">@ViewData["Title"]</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
@@ -36,7 +36,7 @@
                     <label asp-for="Input.Password">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="checkbox mb-3">
+                <div class="checkbox mb-3 text-white">
                     <label asp-for="Input.RememberMe">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)

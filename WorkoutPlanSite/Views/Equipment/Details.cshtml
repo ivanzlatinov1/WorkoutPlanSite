@@ -7,28 +7,28 @@
     <link rel="stylesheet" href="~/site.css" />
 </head>
 
-<div class="container-lg">
+<div class="container-lg" style="max-width: 650px">
     <div class="card">
-        <div class="card-header">@Model.Name</div>
+        <div class="card-header text-center">@Model.Name</div>
         <div class="card-body">
-
+            <div class="form-gap">
             <div class="form-container">
-                <div class="form-gap">
-                <label class="form-label" for="type">Type:</label>
-                <input class="form-label" type="text" id="type" name="type" value="@Model.Type" readonly>
-                <label class="form-label" for="weight">Weight:</label>
-                <input class="form-label" type="text" id="weight" name="weight" value="@Model.Weight" readonly>
-                    <img src="@Model.ImageUrl" class="image-size image-margin" />
+               
+                    <label class="form-label1" for="type">Type:</label>
+                    <input class="form-label2" type="text" id="type" name="type" value="@Model.Type" readonly>
+                    <label class="form-label1" for="weight">Weight:</label>
+                    <input class="form-label2" type="text" id="weight" name="weight" value="@Model.Weight" readonly>
+                    <img src="@Model.ImageUrl" class="image-size image-margin mx-auto d-block" />
                 </div>
-                
-                </div>
-                <form class="align-content-lg-around">
-                <a class="btn btn-warning mt-2" asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id">Click to edit</a>
-                </form>
-                <form asp-controller="Equipment" asp-action="Delete" method="post" asp-route-id="@Model.Id">
-                <input type="submit" class="btn btn-danger mt-2" value="Delete" />
-                </form>
+
             </div>
-            <div class="card-footer">@Model.Plan</div>
+            <form class="text-center mt-1">
+                <a class="btn btn-warning mt-1" asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id">Click to edit</a>
+            </form>
+            <form class="text-center mt-1" asp-controller="Equipment" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+                <input type="submit" class="btn btn-danger mt-1" value="Delete" />
+            </form>
         </div>
+        <div class="card-footer text-center">@Model.Plan Plan</div>
     </div>
+</div>

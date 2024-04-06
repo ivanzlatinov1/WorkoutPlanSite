@@ -39,6 +39,7 @@ namespace WorkoutPlanSite.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+
             ExerciseDTO exercise = await exerciseService.GetByIdAsync(id);
             ExerciseViewModel exerciseViewModel = new ExerciseViewModel()
             {
@@ -47,6 +48,7 @@ namespace WorkoutPlanSite.Controllers
                 Description = exercise.Description,
                 Sets = exercise.Sets,
                 Repetitions= exercise.Repetitions,
+                Difficulty = exercise.difficulty.ToString(),
                 EquipmentId = exercise.EquipmentId,
                 EquipmentName = exercise.Equipment.Name,
                 ImageURL = exercise.ImageURL,
@@ -80,6 +82,24 @@ namespace WorkoutPlanSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ExerciseInputModel exercise)
         {
+            if(!ModelState.IsValid)
+            {
+                Array difficulties = typeof(ExerciseDifficulty).GetEnumValues();
+                ViewBag.Difficulties = (ExerciseDifficulty[])difficulties;
+
+                EquipmentDTO[] equipments = await exerciseService.GetEquipmentsAsync();
+                EquipmentViewModel[] views = equipments.Select(dto => new EquipmentViewModel
+                {
+                    Plan = dto.Plan.ToString(),
+                    Id = dto.Id,
+                    Name = dto.Name,
+                    Weight = dto.Weight,
+                    Type = dto.Type.Name,
+                    ImageUrl = dto.ImageUrl
+                }).ToArray();
+
+                return View(new ExerciseInputModel() { Equipments = views });
+            }
             try
             {
                 ExerciseDTO dto = new ExerciseDTO()
@@ -105,6 +125,9 @@ namespace WorkoutPlanSite.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
+            Array difficulties = typeof(ExerciseDifficulty).GetEnumValues();
+            ViewBag.Difficulties = (ExerciseDifficulty[])difficulties;
+
             ExerciseDTO exercise = await exerciseService.GetByIdAsync(id);
             ExerciseInputModel exerciseInput = new ExerciseInputModel()
             {
@@ -115,6 +138,17 @@ namespace WorkoutPlanSite.Controllers
                 Repetitions= exercise.Repetitions,
                 EquipmentId = exercise.EquipmentId,
                 ImageURL = exercise.ImageURL,
+                Equipments = (await exerciseService.GetEquipmentsAsync())
+                .Select(x => new EquipmentViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Weight = x.Weight,
+                    ImageUrl = x.ImageUrl,
+                    Plan = x.Plan.ToString(),
+                    Type = x.Type.Name,
+                })
+                .ToArray()
             };
             return View(exerciseInput);
         }

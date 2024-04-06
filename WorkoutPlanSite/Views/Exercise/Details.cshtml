@@ -7,28 +7,50 @@
     <link rel="stylesheet" href="~/site.css" />
 </head>
 
-<div class="container-lg">
+<div class="container-lg" style="max-width: 650px">
     <div class="card">
-        <div class="card-header">@Model.Name</div>
+        <div class="card-header text-center">@Model.Name</div>
         <div class="card-body">
 
             <div class="form-container">
-                <div class="form-gap">
-                    <label class="form-label" for="description">Description:</label>
-                    <input class="form-label" type="text" id="description" name="description" value="@Model.Description" readonly>
-                    <label class="form-label" for="weight">Name:</label>
-                    <input class="form-label" type="text" id="weight" name="weight" value="@Model.Name" readonly>
-                    <img src="@Model.ImageURL" class="image-size image-margin" />
+                <div class="form-content">
+                    <div class="form-row">
+                        <label class="form-label" for="name">Name:</label>
+                        <input class="form-field" type="text" id="name" name="name" value="@Model.Name" readonly>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label" for="description">Description:</label>
+                        <input class="form-field" type="text" id="description" name="description" value="@Model.Description" readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label class="form-label" for="sets">Number of sets</label>
+                            <input class="form-field" type="text" id="sets" name="sets" value="@Model.Sets" readonly>
+                        </div>
+                        <div class="form-column">
+                            <label class="form-label" for="repetitions">Number of reps</label>
+                            <input class="form-field" type="text" id="repetitions" name="repetitions" value="@Model.Repetitions" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label" for="difficulty">Difficulty:</label>
+                        <input class="form-field" type="text" id="difficulty" name="difficulty" value="@Model.Difficulty" readonly>
+                    </div>
+                    <div class="form-row">
+                        <img src="@Model.ImageURL" class="image-size image-margin mx-auto d-block" />
+                    </div>
                 </div>
-
             </div>
-            <form class="align-content-lg-around">
-                <a class="btn btn-warning mt-2" asp-controller="Exercise" asp-action="Edit" asp-route-id="@Model.Id">Click to edit</a>
-            </form>
-            <form asp-controller="Exercise" asp-action="Delete" method="post" asp-route-id="@Model.Id">
-                <input type="submit" class="btn btn-danger mt-2" value="Delete" />
-            </form>
+
+
+
         </div>
-        <div class="card-footer">This exercise is using @Model.EquipmentName</div>
+        <form class="text-center mb-1">
+            <a class="btn btn-warning mb-1" asp-controller="Exercise" asp-action="Edit" asp-route-id="@Model.Id">Click to edit</a>
+        </form>
+        <form class="text-center mb-1" asp-controller="Exercise" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+            <input type="submit" class="btn btn-danger mb-1" value="Delete" />
+        </form>
     </div>
+    <div class="card-footer text-center text-white">This exercise is using @Model.EquipmentName</div>
 </div>
