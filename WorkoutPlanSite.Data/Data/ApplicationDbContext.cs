@@ -38,6 +38,7 @@ namespace WorkoutPlanSite.Data
             };
             builder.Entity<Type>().HasData(types);
             builder.Entity<Equipment>().Navigation(e => e.Type).AutoInclude();
+            builder.Entity<Exercise>().Navigation(e => e.Equipment).AutoInclude();
             base.OnModelCreating(builder);
         }
     }

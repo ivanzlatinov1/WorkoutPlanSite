@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WorkoutPlanSite.Data.Data.Models.Enums;
 using WorkoutPlanSite.Models.Exercise;
 using WorkoutPlanSite.Services.DTOs;
 using WorkoutPlanSite.Services.Interfaces;
+using WorkoutPlanSite.Services.Services;
 
 namespace WorkoutPlanSite.Controllers
 {
@@ -23,9 +25,10 @@ namespace WorkoutPlanSite.Controllers
                 Duration = x.Duration,
                 EquipmentId = x.EquipmentId,
                 EquipmentName = x.Equipment.Name,
+                ImageURL = x.ImageURL,
             })
                 .ToArray();
-            return View(exercises);
+            return View(exerciseViews);
         }
 
         [HttpGet]
@@ -40,6 +43,7 @@ namespace WorkoutPlanSite.Controllers
                 Duration = exercise.Duration,
                 EquipmentId = exercise.EquipmentId,
                 EquipmentName = exercise.Equipment.Name,
+                ImageURL = exercise.ImageURL,
             };
             return View(exerciseViewModel);
         }
@@ -47,7 +51,10 @@ namespace WorkoutPlanSite.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var exercise = new ExerciseInputModel();
+            Array difficulties = typeof(ExerciseDifficulty).GetEnumValues();
+            ViewBag.Difficulties = (ExerciseDifficulty[])difficulties;
+
+            var exercise = new ExerciseInputModel() { Equipment = await exerciseService.GetEquipmentsAsync() };
             return View(exercise);
         }
 
@@ -63,10 +70,12 @@ namespace WorkoutPlanSite.Controllers
                     Name = exercise.Name,
                     Description = exercise.Description,
                     Duration = exercise.Duration,
+                    difficulty = exercise.Difficulty,
                     EquipmentId = exercise.EquipmentId,
+                    ImageURL= exercise.ImageURL,
                 };
                 await exerciseService.CreateAsync(dto);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { diff = exercise.Difficulty });
             }
             catch
             {
@@ -85,6 +94,7 @@ namespace WorkoutPlanSite.Controllers
                 Description = exercise.Description,
                 Duration = exercise.Duration,
                 EquipmentId = exercise.EquipmentId,
+                ImageURL= exercise.ImageURL,
             };
             return View(exerciseInput);
         }
@@ -103,6 +113,7 @@ namespace WorkoutPlanSite.Controllers
                     Description = exercise.Description,
                     Duration = exercise.Duration,
                     EquipmentId = exercise.EquipmentId,
+                    ImageURL= exercise.ImageURL,
                 };
                 await exerciseService.EditAsync(dto);
                 return RedirectToAction(nameof(Index));

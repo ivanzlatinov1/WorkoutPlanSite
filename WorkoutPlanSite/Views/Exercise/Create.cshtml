@@ -1,3 +1,11 @@
 ﻿@model ExerciseInputModel
 @{
+    ViewData["Title"] = "Creating exercise";
+    ViewBag.Action = "Create";
 }
+
+<h2 class="text-center mb-2">@ViewData["Title"]</h2>
+<hr />
+<div class="container">
+    <partial name="Partials/_ExerciseFormPartial" model="@Model" view-data="ViewData" />
+</div>

@@ -1,0 +1,14 @@
+﻿@model ExerciseViewModel
+@{
+
+}
+
+<div class="col-4 mb-3">
+    <div class="card">
+        <div class="card-header">@Model.Name</div>
+        <div class="card-body">
+            <a class="btn btn-secondary" asp-controller="Equipment" asp-action="Details" asp-route-id="@Model.Id">Click to see details</a>
+        </div>
+        <div class="card-footer">@Model.Description</div>
+    </div>
+</div>

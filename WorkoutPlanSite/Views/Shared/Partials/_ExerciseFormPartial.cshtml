@@ -1,0 +1,72 @@
+﻿@model ExerciseInputModel
+@{
+    ExerciseDifficulty[] difficulties = ViewBag.Difficulties;
+    string action = ViewBag.Action;
+}
+
+<form method="post" asp-controller="Equipment" asp-action="@action">
+    <div class="row justify-content-center">
+        <div class="col-3 text-center fw-bold">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Type the name of the exercise" />
+            <span asp-validation-for="Name" class="small text-danger"></span>
+        </div>
+        <div class="col-3 text-center fw-bold">
+            <label asp-for="Duration" class="form-label"></label>
+            <div class="input-group">
+                <input asp-for="Duration" class="form-control" placeholder="Enter a duration of the exercise" />
+                <span class="input-group-text" style="min-width: 130px">seconds</span>
+            </div>
+            <span asp-validation-for="Duration" class="small text-danger"></span>
+        </div>
+
+    </div>
+    <div class="row mt-3 justify-content-center">
+        <div class="col-3 text-center fw-bold">
+            <label asp-for="EquipmentId" class="form-label"></label>
+            <select asp-for="EquipmentId" class="form-control">
+                <option value="@null" selected>No equipment</option>
+                @foreach (EquipmentDTO equipment in Model.Equipment)
+                {
+                    <option>@equipment</option>
+                }
+            </select>
+            <span asp-validation-for="EquipmentId" class="small text-danger"></span>
+        </div>
+        <div class="col-3 text-center fw-bold">
+            <label asp-for="Difficulty" class="form-label"></label>
+            <select asp-for="Difficulty" class="form-control">
+                @foreach (ExerciseDifficulty diff in difficulties)
+                {
+                   <option value="@(diff)">@diff.ToString()</option>
+                }
+            </select>
+            <span asp-validation-for="Difficulty" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+        <div class="col-6 text-center fw-bold">
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control" placeholder="Enter a description of the exercise" />
+            <span asp-validation-for="Description" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="row mt-3 justify-content-center">
+        <div class="col-6 text-center fw-bold">
+            <label asp-for="ImageURL" class="form-label"></label>
+            <input asp-for="ImageURL" class="form-control" placeholder="Place your image url" />
+            <span asp-validation-for="ImageURL" class="small text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mt-3 justify-content-center">
+        <div class="col-auto">
+            <input class="btn btn-primary" type="submit" value="@if(ViewBag.Action == "Edit")
+                   {
+            <text>Save</text>
+            } else {
+            <text>Create</text>
+            }" />
+        </div>
+    </div>
+</form>

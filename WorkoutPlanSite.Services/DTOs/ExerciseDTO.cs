@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkoutPlanSite.Data.Models;
+using WorkoutPlanSite.Data.Data.Models.Enums;
 
 namespace WorkoutPlanSite.Services.DTOs
 {
@@ -25,9 +26,15 @@ namespace WorkoutPlanSite.Services.DTOs
         public int Duration { get; set; }
 
         [Required]
+        public ExerciseDifficulty difficulty { get; set; }
+
+        [Required]
         public int EquipmentId { get; set; }
 
         [Required]
         public EquipmentDTO Equipment { get; set; } = null!;
+
+        [Url]
+        public string? ImageURL { get; set; }
     }
 }

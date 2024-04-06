@@ -1,4 +1,6 @@
-﻿namespace WorkoutPlanSite.Models.Exercise
+﻿using WorkoutPlanSite.Data.Data.Models.Enums;
+
+namespace WorkoutPlanSite.Models.Exercise
 {
     public class ExerciseViewModel
     {
@@ -10,8 +12,12 @@
 
         public int Duration { get; set; }
 
+        public string Difficulty { get; set; } = null!;
+
         public int EquipmentId { get; set; }
 
         public string EquipmentName { get; set; } = null!;
+
+        public string? ImageURL { get; set; }
     }
 }

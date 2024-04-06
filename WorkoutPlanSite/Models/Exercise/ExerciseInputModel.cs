@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WorkoutPlanSite.Data.Data.Models.Enums;
 using WorkoutPlanSite.Services.DTOs;
 
 namespace WorkoutPlanSite.Models.Exercise
@@ -23,10 +24,18 @@ namespace WorkoutPlanSite.Models.Exercise
         public int Duration { get; set; }
 
         [Required]
+        [Display(Name = "Difficulty")]
+        public ExerciseDifficulty Difficulty { get; set; }
+
+        [Required]
         [Display(Name = "Equipment")]
         public int EquipmentId { get; set; }
 
-        public EquipmentDTO Equipment { get; set; } = null!;
+        public EquipmentDTO[]? Equipment { get; set; }
+
+        [Url]
+        [Display(Name = "Image link")]
+        public string? ImageURL { get; set; }
 
     }
 }

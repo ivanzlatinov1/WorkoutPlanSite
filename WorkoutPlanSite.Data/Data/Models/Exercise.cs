@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WorkoutPlanSite.Data.Data.Models.Enums;
 
 namespace WorkoutPlanSite.Data.Models
 {
@@ -18,10 +19,18 @@ namespace WorkoutPlanSite.Data.Models
         public int Duration { get; set; }
 
         [Required]
+        public ExerciseDifficulty difficulty { get; set; }
+
+        [Required]
         public int EquipmentId { get; set;}
 
         [Required]
         [ForeignKey(nameof(EquipmentId))]
         public Equipment Equipment { get; set; } = null!;
+
+        [Url]
+        public string? ImageURL { get; set; }
+
+
     }
 }

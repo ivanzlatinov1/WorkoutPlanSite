@@ -26,6 +26,7 @@ namespace WorkoutPlanSite.Services.Services
                 Description = dto.Description,
                 Duration = dto.Duration,
                 EquipmentId = dto.EquipmentId,
+                ImageURL = dto.ImageURL
             };
 
             await context.Exercises.AddAsync(exercise);
@@ -50,6 +51,7 @@ namespace WorkoutPlanSite.Services.Services
             exercise.Description = dto.Description;
             exercise.Duration = dto.Duration;
             exercise.EquipmentId = dto.EquipmentId;
+            exercise.ImageURL = dto.ImageURL;
             await context.SaveChangesAsync();
         }
 
@@ -69,7 +71,8 @@ namespace WorkoutPlanSite.Services.Services
                         Name = e.Equipment.Name,
                         TypeId = e.Equipment.TypeId,
                         Weight = e.Equipment.Weight,
-                    }
+                    },
+                    ImageURL = e.ImageURL
                 })
                 .ToArrayAsync();
         }
@@ -91,9 +94,20 @@ namespace WorkoutPlanSite.Services.Services
                     Name = exercise.Equipment.Name,
                     TypeId = exercise.Equipment.TypeId,
                     Weight = exercise.Equipment.Weight,
-                }
+                },
+                ImageURL = exercise.ImageURL
             };
             return dto;
+        }
+
+        public async Task<EquipmentDTO[]> GetEquipmentsAsync()
+        {
+            return await context.Types.Select(t => new EquipmentDTO()
+            {
+                Id = t.Id,
+                Name = t.Name,
+            })
+                .ToArrayAsync();
         }
     }
 }

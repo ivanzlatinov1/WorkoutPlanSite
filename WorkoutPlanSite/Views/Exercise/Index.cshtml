@@ -1,3 +1,27 @@
-﻿@model IEnumerable<ExerciseDTO>
+﻿@model IEnumerable<ExerciseViewModel>
 @{
+    ViewData["Title"] = "Exercises";
+}
+
+<h2 class="text-center mb-2">@ViewData["Title"]</h2>
+<hr />
+
+<div class="d-flex justify-content-center mb-2">
+    <a class="btn btn-primary" asp-controller="Exercise" asp-action="Create">Add exercise</a>
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-center">There are no exercises yet.</p>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+            @foreach (ExerciseViewModel exercise in Model)
+            {
+                <partial name="Partials/_ExercisePartial" model="exercise" />
+            }
+        </div>
+    </div>
 }
