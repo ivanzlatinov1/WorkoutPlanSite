@@ -32,9 +32,12 @@
         <div class="col-3 text-center fw-bold">
             <label asp-for="Plan" class="form-label"></label>
             <select asp-for="Plan" class="form-control">
-                @foreach (Plan plan in plans)
+                @if (plans != null)
                 {
-                    <option value="@(plan)">@plan.ToString()</option>
+                    @foreach (Plan plan in plans)
+                    {
+                        <option value="@(plan)">@plan.ToString()</option>
+                    }
                 }
             </select>
             <span asp-validation-for="Plan" class="small text-danger"></span>
@@ -56,3 +59,7 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

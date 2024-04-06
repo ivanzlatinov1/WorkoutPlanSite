@@ -102,12 +102,19 @@ namespace WorkoutPlanSite.Services.Services
 
         public async Task<EquipmentDTO[]> GetEquipmentsAsync()
         {
-            return await context.Types.Select(t => new EquipmentDTO()
+            var equipments = await context.Equipments.Select(t => new EquipmentDTO()
             {
                 Id = t.Id,
                 Name = t.Name,
+                Type = new TypeDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                }
             })
                 .ToArrayAsync();
+            return equipments;
         }
+
     }
 }

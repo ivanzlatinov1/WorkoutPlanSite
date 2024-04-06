@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WorkoutPlanSite.Models.Type;
 using WorkoutPlanSite.Services.DTOs;
 using WorkoutPlanSite.Services.Interfaces;
 
 namespace WorkoutPlanSite.Controllers
 {
+    [Authorize]
     public class TypeController : Controller
     {
         private readonly ITypeService typeService;

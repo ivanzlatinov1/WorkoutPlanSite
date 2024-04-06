@@ -26,9 +26,9 @@
             <label asp-for="EquipmentId" class="form-label"></label>
             <select asp-for="EquipmentId" class="form-control">
                 <option value="@null" selected>No equipment</option>
-                @foreach (EquipmentDTO equipment in Model.Equipment)
+                @foreach (EquipmentViewModel equipment in Model.Equipments)
                 {
-                    <option>@equipment</option>
+                    <option value="@equipment.Id">@equipment.Name</option>
                 }
             </select>
             <span asp-validation-for="EquipmentId" class="small text-danger"></span>
@@ -38,7 +38,7 @@
             <select asp-for="Difficulty" class="form-control">
                 @foreach (ExerciseDifficulty diff in difficulties)
                 {
-                   <option value="@(diff)">@diff.ToString()</option>
+                    <option value="@(diff)">@diff.ToString()</option>
                 }
             </select>
             <span asp-validation-for="Difficulty" class="small text-danger"></span>
@@ -70,3 +70,8 @@
         </div>
     </div>
 </form>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
