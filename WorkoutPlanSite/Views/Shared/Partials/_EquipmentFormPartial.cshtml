@@ -13,7 +13,10 @@
         </div>
         <div class="col-3 text-center fw-bold text-white">
             <label asp-for="Weight" class="form-label"></label>
-            <input asp-for="Weight" class="form-control" placeholder="Type your weight" />
+            <div class="input-group">
+                <input asp-for="Weight" class="form-control" placeholder="Type your weight" />
+                <span class="input-group-text" style="min-width: 80px">kg</span>
+            </div>
             <span asp-validation-for="Weight" class="small text-danger"></span>
         </div>
     </div>

@@ -33,7 +33,7 @@ namespace WorkoutPlanSite.Models.Exercise
         [Display(Name = "Difficulty")]
         public ExerciseDifficulty Difficulty { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Equipment is required.")]
         [Display(Name = "Equipment")]
         public int EquipmentId { get; set; }
 

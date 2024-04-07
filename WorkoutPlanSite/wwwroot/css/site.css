@@ -40,26 +40,40 @@ body {
     font-weight: bold;
     margin-bottom: 5px;
     margin-right: 3px;
-    /*display: block;*/
 }
 
 .form-label1 {
     font-weight: bold;
     margin-bottom: 5px;
-    margin-right: 100px;
-    /*display: block;*/
+    margin-right: 15px;
+    margin-left: 150px;
 }
 
 .form-label2 {
     font-weight: bold;
-    margin-bottom: 5px;
-    margin-right: 40px;
-    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 100px;
+    border: groove;
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: center;
+    width: 150px;
+    box-shadow: initial;
 }
 
-    .form-label2 + input {
-        margin-left: 5px;
-    }
+.form-label3 {
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-right: 100px;
+    margin-left: 19px;
+    border: groove;
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: center;
+    width: 150px;
+    box-shadow: initial;
+}
+
 
 .form-input {
     width: 100%;
@@ -116,8 +130,10 @@ body {
 .form-field {
     width: calc(100% - 130px);
     padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    border: groove;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 400;
 }
 
 .form-column {
@@ -227,4 +243,19 @@ body {
 
 .button:hover span {
     width: 100%;
+}
+
+.container-lg {
+    width: 650px;
+    background: transparent;
+}
+
+.container-footer {
+    height: 30px;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.border-top {
+    border-top: dashed;
 }
