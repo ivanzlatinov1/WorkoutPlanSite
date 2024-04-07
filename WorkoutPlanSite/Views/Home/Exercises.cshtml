@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ExerciseViewModel>
+@{
+    ViewData["Title"] = "Explore Exercises";
+}
+
+
+<h2 class="text-center mb-2 text-white">@ViewData["Title"]</h2>
+<hr />
+
+
+@if (!Model.Any())
+{
+    <p class="text-center text-white">There are no exercises yet.</p>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+            @foreach (ExerciseViewModel exercise in Model)
+            {
+                <partial name="Partials/_ExercisePartial" model="exercise" />
+            }
+        </div>
+    </div>
+}

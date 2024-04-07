@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Explore";
+}
+
+<div class="d-flex">
+    <h1 class="text-white h1-width mt-4" style="margin-left:65px; font-weight:600; text-shadow: initial">Equipments Section</h1>
+    <h1 class="text-white h1-width mt-4" style="padding-left: 460px; white-space: nowrap; font-weight:600; text-shadow: initial">Exercises Section</h1>
+</div>
+<div class="d-flex">
+    <div class="button-container">
+
+        <div class="d-flex" style="width: calc(100% + 200px); margin-left: -100px;">
+            <p class="text-white mt-5" style="margin-left: 65px">If you are searching equipments for beginners, this is the page you are looking for.</p>
+            <p class="text-white mt-5" style="margin-left: 380px">Exercises that everyone can do.</p>
+        </div>
+        <div class="d-flex">
+
+            <a class="button1" asp-action="Equipments" asp-controller="Home" asp-route-plan="Beginner">
+                <span class="span">
+                </span>
+                Beginner
+            </a>
+            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-difficulty="Easy">
+                <span class="span">
+                </span>
+                Easy
+            </a>
+        </div>
+
+        <div class="d-flex" style="width: calc(100% + 200px); margin-left: -100px;">
+            <p class="text-white mt-5" style="margin-left: 160px">For more advanced equipments, this button is for you.</p>
+            <p class="text-white mt-5" style="margin-left: 415px">Exercises that require more strength and precision.</p>
+        </div>
+
+        <div class="d-flex">
+            <a class="button1" asp-action="Equipments" asp-controller="Home" asp-route-plan="Intermediate">
+                <span class="span">
+                </span>
+                Intermediate
+            </a>
+            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-difficulty="Medium">
+                <span class="span">
+                </span>
+                Medium
+            </a>
+        </div>
+
+        <div class="d-flex" style="width: calc(100% + 200px); margin-left: -100px;">
+            <p class="text-white mt-5" style="margin-left: 65px">In case you want to compete, these equipments may help you improve your strength.</p>
+            <p class="text-white mt-5" style="margin-left: 288px">Be careful when doing one of these, ask for a spotter.</p>
+        </div>
+
+        <div class="d-flex">
+            <a class="button1" asp-action="Equipments" asp-controller="Home" asp-route-plan="Advanced">
+                <span class="span">
+                </span>
+                Advanced
+            </a>
+            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-difficulty="Hard">
+                <span class="span">
+                </span>
+                Hard
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="vertical-line"></div>
+
+
+

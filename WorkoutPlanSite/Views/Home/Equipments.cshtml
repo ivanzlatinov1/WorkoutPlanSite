@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EquipmentViewModel>
+@{
+    ViewData["Title"] = "Explore Equipment";
+}
+
+
+<h2 class="text-center mb-2 text-white">@ViewData["Title"]</h2>
+<hr />
+
+
+@if (!Model.Any())
+{
+    <p class="text-center text-white">There are no equipments yet.</p>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+            @foreach (EquipmentViewModel equipment in Model)
+            {
+                <partial name="Partials/_EquipmentPartial" model="equipment" />
+            }
+        </div>
+    </div>
+}

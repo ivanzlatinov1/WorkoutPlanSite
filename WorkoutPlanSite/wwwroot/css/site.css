@@ -271,10 +271,91 @@ body {
 
 .wrapper {
     min-height: 100%;
-    margin-bottom: -60px; /* Height of the footer */
+    margin-bottom: -60px;
 }
 
 .footer {
     height: 60px;
     background: transparent;
+}
+
+.vertical-line {
+    position: absolute;
+    top: 57px;
+    bottom: -71px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: white;
+}
+
+.button1 {
+    width: 200px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 10px 0;
+    margin-left: 140px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #808080;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.button2 {
+    width: 200px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 10px 0;
+    margin-left: 600px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #808080;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.button2:hover span {
+    width: 100%;
+    color: white;
+}
+
+    .button1:hover span {
+        width: 100%;
+        color:white;
+    }
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.button-container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 200px;
+    padding-left: 1000px;
+}
+
+.h1-width {
+    max-width: 400px;
+}
+
+.button1:hover {
+    color: white;
+}
+
+.button2:hover {
+    color: white;
 }
