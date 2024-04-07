@@ -28,6 +28,7 @@ namespace WorkoutPlanSite.Controllers
                 Description = x.Description,
                 Sets = x.Sets,
                 Repetitions = x.Repetitions,
+                Difficulty = x.difficulty.ToString(),
                 EquipmentId = x.EquipmentId,
                 EquipmentName = x.Equipment.Name,
                 ImageURL = x.ImageURL,
@@ -136,6 +137,7 @@ namespace WorkoutPlanSite.Controllers
                 Description = exercise.Description,
                 Sets = exercise.Sets,
                 Repetitions= exercise.Repetitions,
+                Difficulty = exercise.difficulty,
                 EquipmentId = exercise.EquipmentId,
                 ImageURL = exercise.ImageURL,
                 Equipments = (await exerciseService.GetEquipmentsAsync())
@@ -167,6 +169,7 @@ namespace WorkoutPlanSite.Controllers
                     Description = exercise.Description,
                     Sets = exercise.Sets,
                     Repetitions= exercise.Repetitions,
+                    difficulty = exercise.Difficulty,
                     EquipmentId = exercise.EquipmentId,
                     ImageURL = exercise.ImageURL,
                 };

@@ -6,7 +6,6 @@ using WorkoutPlanSite.Services.Interfaces;
 
 namespace WorkoutPlanSite.Controllers
 {
-    [Authorize]
     public class TypeController : Controller
     {
         private readonly ITypeService typeService;

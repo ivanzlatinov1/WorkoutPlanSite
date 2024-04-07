@@ -26,6 +26,7 @@ namespace WorkoutPlanSite.Services.Services
                 Description = dto.Description,
                 Sets = dto.Sets,
                 Repetitions = dto.Repetitions,
+                difficulty = dto.difficulty,
                 EquipmentId = dto.EquipmentId,
                 ImageURL = dto.ImageURL
             };
@@ -52,6 +53,7 @@ namespace WorkoutPlanSite.Services.Services
             exercise.Description = dto.Description;
             exercise.Sets = dto.Sets;
             exercise.Repetitions = dto.Repetitions;
+            exercise.difficulty = dto.difficulty;
             exercise.EquipmentId = dto.EquipmentId;
             exercise.ImageURL = dto.ImageURL;
             await context.SaveChangesAsync();
@@ -67,6 +69,7 @@ namespace WorkoutPlanSite.Services.Services
                     Description = e.Description,
                     Sets = e.Sets,
                     Repetitions = e.Repetitions,
+                    difficulty = e.difficulty,
                     EquipmentId = e.EquipmentId,
                     Equipment = new EquipmentDTO()
                     {
@@ -91,6 +94,7 @@ namespace WorkoutPlanSite.Services.Services
                 Description = exercise.Description,
                 Sets = exercise.Sets,
                 Repetitions = exercise.Repetitions,
+                difficulty= exercise.difficulty,
                 EquipmentId = exercise.EquipmentId,
                 Equipment = new EquipmentDTO()
                 {

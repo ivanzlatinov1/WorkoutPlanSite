@@ -259,3 +259,22 @@ body {
 .border-top {
     border-top: dashed;
 }
+
+.form-label {
+    width: 200px
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -60px; /* Height of the footer */
+}
+
+.footer {
+    height: 60px;
+    background: transparent;
+}

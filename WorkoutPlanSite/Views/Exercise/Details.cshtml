@@ -9,10 +9,10 @@
 
 <div class="container-lg">
     <div class="card">
-        <div class="card-header text-center">@Model.Name</div>
+        <div class="card-header text-center" style="font-weight: bold">@Model.Name</div>
         <div class="card-body">
 
-            <div class="form-container">
+            <div class="form-container" style="background-color:gray">
                 <div class="form-content">
                     <div class="form-row">
                         <label class="form-label" for="name">Name:</label>
@@ -38,19 +38,18 @@
                     </div>
                     <div class="form-row">
                         <img src="@Model.ImageURL" class="image-size image-margin mx-auto d-block" />
+                        <div class="text-center text-black mt-2" style="font-weight: bold; background: transparent">This exercise is using @Model.EquipmentName</div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-        <form class="text-center mb-1">
-            <a class="btn btn-warning mb-1" asp-controller="Exercise" asp-action="Edit" asp-route-id="@Model.Id">Click to edit</a>
-        </form>
-        <form class="text-center mb-1" asp-controller="Exercise" asp-action="Delete" method="post" asp-route-id="@Model.Id">
-            <input type="submit" class="btn btn-danger mb-1" value="Delete" />
-        </form>
+    <div class="d-flex justify-content-center">
+            <form class="text-center mb-1">
+                <a class="btn btn-warning mb-1" asp-controller="Exercise" asp-action="Edit" asp-route-id="@Model.Id">Click to edit</a>
+            </form>
+            <form class="text-center mb-1" style="margin-left: 20px" asp-controller="Exercise" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+                <input type="submit" class="btn btn-danger mb-1" value="Delete" />
+            </form>
     </div>
-    <div class="card-footer text-center text-white">This exercise is using @Model.EquipmentName</div>
+    </div>
 </div>
