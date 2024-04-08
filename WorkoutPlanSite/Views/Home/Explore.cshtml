@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Explore";
+    ViewBag.HideFooter = false;
 }
 
 <div class="d-flex">
@@ -20,7 +21,7 @@
                 </span>
                 Beginner
             </a>
-            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-difficulty="Easy">
+            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-diff="Easy">
                 <span class="span">
                 </span>
                 Easy
@@ -38,7 +39,7 @@
                 </span>
                 Intermediate
             </a>
-            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-difficulty="Medium">
+            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-diff="Medium">
                 <span class="span">
                 </span>
                 Medium
@@ -56,7 +57,7 @@
                 </span>
                 Advanced
             </a>
-            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-difficulty="Hard">
+            <a class="button2" asp-action="Exercises" asp-controller="Home" asp-route-diff="Hard">
                 <span class="span">
                 </span>
                 Hard

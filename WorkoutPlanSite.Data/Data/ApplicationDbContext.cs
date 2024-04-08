@@ -25,7 +25,7 @@ namespace WorkoutPlanSite.Data
                     Id = 1,
                     Name = "Machines",
                 },
-                 new()
+                new()
                 {
                     Id = 2,
                     Name = "Dumbells",
@@ -34,6 +34,11 @@ namespace WorkoutPlanSite.Data
                 {
                     Id = 3,
                     Name = "Bars",
+                },
+                 new()
+                {
+                    Id = 4,
+                    Name = "No equipment",
                 },
             };
             builder.Entity<Type>().HasData(types);

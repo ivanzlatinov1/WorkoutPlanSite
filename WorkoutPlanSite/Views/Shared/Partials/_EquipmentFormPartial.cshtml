@@ -2,6 +2,7 @@
 @{
         Plan[] plans = Model.Plans!;
     string action = ViewBag.Action;
+    ViewBag.HideFooter = false;
 }
 
 <form method="post" asp-controller="Equipment" asp-action="@action">
@@ -24,14 +25,20 @@
         <div class="col-3 text-center fw-bold">
             <label asp-for="TypeId" class="form-label"></label>
             <select asp-for="TypeId" class="form-control">
-                <option value="@null" selected>No type</option>
-                @foreach (TypeDTO type in Model.Types)
-                {
-                    @if (Model.Types == null)
+                @{
+                    if (Model.Types == null || !Model.Types.Any())
                     {
-                        <p>Model.Types is null!</p>
+                        <p>Model.Types is null or empty!</p>
                     }
-                    <option value="@type.Id">@type.Name</option>
+                    else
+                    {
+                        var reversedTypes = Model.Types.Reverse().ToList();
+
+                        foreach (TypeDTO type in reversedTypes)
+                        {
+                            <option value="@type.Id">@type.Name</option>
+                        }
+                    }
                 }
             </select>
             <span asp-validation-for="TypeId" class="small text-danger"></span>

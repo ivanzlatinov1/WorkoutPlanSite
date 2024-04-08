@@ -14,7 +14,7 @@ namespace WorkoutPlanSite.Models.Equipment
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Weight is required.")]
-        [Range(1, 220)]
+        [Range(0, 220)]
         [Display(Name = "Weight")]
         public double? Weight { get; set; }
 

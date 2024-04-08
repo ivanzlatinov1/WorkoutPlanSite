@@ -62,10 +62,10 @@ namespace WorkoutPlanSite.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Exercises()
+        public async Task<IActionResult> Exercises(string? diff = null)
         {
             IEnumerable<ExerciseDTO> exercises = await exerciseService.GetAllAsync();
-            ExerciseViewModel[] exerciseViews = exercises.Select(x => new ExerciseViewModel()
+            IEnumerable<ExerciseViewModel> exerciseViews = exercises.Select(x => new ExerciseViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -78,6 +78,11 @@ namespace WorkoutPlanSite.Controllers
                 ImageURL = x.ImageURL,
             })
             .ToArray();
+
+            if (diff != null)
+            {
+                exerciseViews = exerciseViews.Where(e => e.Difficulty == diff);
+            }
 
             return View(exerciseViews);
         }

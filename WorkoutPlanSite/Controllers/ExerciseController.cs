@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using WorkoutPlanSite.Data.Data.Models.Enums;
 using WorkoutPlanSite.Data.Models;
 using WorkoutPlanSite.Models.Equipment;
@@ -18,10 +19,10 @@ namespace WorkoutPlanSite.Controllers
         {
             this.exerciseService = exerciseService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? diff = null)
         {
             IEnumerable<ExerciseDTO> exercises = await exerciseService.GetAllAsync();
-            ExerciseViewModel[] exerciseViews = exercises.Select(x => new ExerciseViewModel()
+            IEnumerable<ExerciseViewModel> exerciseViews = exercises.Select(x => new ExerciseViewModel()
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -33,13 +34,21 @@ namespace WorkoutPlanSite.Controllers
                 EquipmentName = x.Equipment.Name,
                 ImageURL = x.ImageURL,
             })
-                .ToArray();
+            .ToArray();
+
+
+            if (diff != null)
+            {
+                exerciseViews = exerciseViews.Where(e => e.Difficulty == diff);
+            }
+
             return View(exerciseViews);
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+            ViewBag.HideFooter = true;
 
             ExerciseDTO exercise = await exerciseService.GetByIdAsync(id);
             ExerciseViewModel exerciseViewModel = new ExerciseViewModel()

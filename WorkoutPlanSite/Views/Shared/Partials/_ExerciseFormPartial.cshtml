@@ -2,6 +2,7 @@
 @{
     ExerciseDifficulty[] difficulties = ViewBag.Difficulties;
     string action = ViewBag.Action;
+    ViewBag.HideFooter = false;
 }
 
 <form method="post" asp-controller="Exercise" asp-action="@action">

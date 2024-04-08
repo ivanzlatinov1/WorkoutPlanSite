@@ -13,7 +13,7 @@ namespace WorkoutPlanSite.Data.Models
         [MaxLength(33)]
         public string Name { get; set; } = null!;
 
-        [Range(1, 220)]
+        [Range(0, 220)]
         public double? Weight { get; set; }
 
         [Required]

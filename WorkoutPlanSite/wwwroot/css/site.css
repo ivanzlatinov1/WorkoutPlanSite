@@ -250,11 +250,6 @@ body {
     background: transparent;
 }
 
-.container-footer {
-    height: 30px;
-    text-align: left;
-    padding-left: 30px;
-}
 
 .border-top {
     border-top: dashed;
@@ -274,9 +269,24 @@ body {
     margin-bottom: -60px;
 }
 
+.container-footer {
+    width: 200px;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    text-align: left;
+    padding-left: 30px;
+    left: 0;
+}
+
 .footer {
-    height: 60px;
+    width: 200px;
+    bottom: 0;
+    left: 0;
+    height: 0px;
     background: transparent;
+    padding-left: 30px;
+    position: sticky;
 }
 
 .vertical-line {
