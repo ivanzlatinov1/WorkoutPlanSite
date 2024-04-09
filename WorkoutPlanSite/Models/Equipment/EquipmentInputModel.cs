@@ -22,6 +22,9 @@ namespace WorkoutPlanSite.Models.Equipment
         [Display(Name = "Plan")]
         public Plan Plan { get; set; }
 
+        [Required]
+        public Metric Metric { get; set; }
+
         [Required(ErrorMessage = "Type is required.")]
         [Display(Name = "Type")]
         public int TypeId { get; set; }
@@ -33,5 +36,7 @@ namespace WorkoutPlanSite.Models.Equipment
         public string? ImageUrl { get; set; }
 
         public Plan[]? Plans { get; set; }
+        public Metric[]? Metrics { get; set; }
+
     }
 }

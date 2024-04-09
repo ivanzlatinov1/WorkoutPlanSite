@@ -10,6 +10,8 @@
 
         public string Plan { get; set; } = null!;
 
+        public string Metric { get; set; } = null!;
+
         public string Type{ get; set; } = null!;
 
         public string? ImageUrl { get; set; }

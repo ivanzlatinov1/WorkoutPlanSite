@@ -369,3 +369,7 @@ body {
 .button2:hover {
     color: white;
 }
+
+.form-select {
+    max-width: 100px;
+}

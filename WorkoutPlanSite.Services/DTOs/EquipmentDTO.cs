@@ -25,6 +25,9 @@ namespace WorkoutPlanSite.Services.DTOs
         public Plan Plan { get; set; }
 
         [Required]
+        public Metric Metric { get; set; }
+
+        [Required]
         public int TypeId { get; set; }
 
         [Required]

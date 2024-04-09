@@ -23,6 +23,7 @@ namespace WorkoutPlanSite.Controllers
             IEnumerable<EquipmentViewModel> views = equipments.Select(e => new EquipmentViewModel
             {
                 Plan = e.Plan.ToString(),
+                Metric = e.Metric.ToString(),
                 Id = e.Id,
                 Name = e.Name,
                 Weight = e.Weight,
@@ -45,6 +46,7 @@ namespace WorkoutPlanSite.Controllers
             EquipmentViewModel equipment = new()
             {
                 Plan = dto.Plan.ToString(),
+                Metric = dto.Metric.ToString(),
                 Id = dto.Id,
                 Name = dto.Name,
                 Weight = dto.Weight,
@@ -59,10 +61,12 @@ namespace WorkoutPlanSite.Controllers
         public async Task<IActionResult> Create()
         {
             Array plans = typeof(Plan).GetEnumValues();
+            Array metrics = typeof(Metric).GetEnumValues();
 
             return View(new EquipmentInputModel() {
                 Types = await equipmentService.GetTypesAsync(),
-                Plans = (Plan[])plans
+                Plans = (Plan[])plans,
+                Metrics = (Metric[])metrics
             });
         }
 
@@ -76,6 +80,9 @@ namespace WorkoutPlanSite.Controllers
                 Array plans = typeof(Plan).GetEnumValues();
                 input.Plans = (Plan[])plans;
 
+                Array metrics = typeof(Metric).GetEnumValues();
+                input.Metrics = (Metric[])metrics;
+
                 input.Types = await equipmentService.GetTypesAsync();
                 return View(input);
             }
@@ -85,6 +92,7 @@ namespace WorkoutPlanSite.Controllers
                 Name = input.Name,
                 Weight = input.Weight,
                 Plan = input.Plan,
+                Metric = input.Metric,
                 TypeId = input.TypeId,
                 ImageUrl = input.ImageUrl
             };
@@ -96,6 +104,7 @@ namespace WorkoutPlanSite.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             Array plans = typeof(Plan).GetEnumValues();
+            Array metrics = typeof(Metric).GetEnumValues();
 
             EquipmentDTO dto = await equipmentService.GetByIdAsync(id);
             EquipmentInputModel equipment = new()
@@ -104,10 +113,12 @@ namespace WorkoutPlanSite.Controllers
                 Name = dto.Name,
                 Weight = dto.Weight,
                 Plan = dto.Plan,
+                Metric = dto.Metric,
                 TypeId = dto.TypeId,
                 Types = await equipmentService.GetTypesAsync(),
                 ImageUrl = dto.ImageUrl,
-                Plans = (Plan[])plans
+                Plans = (Plan[])plans,
+                Metrics = (Metric[])metrics
             };
             return View(equipment);
         }
@@ -121,6 +132,9 @@ namespace WorkoutPlanSite.Controllers
                 Array plans = typeof(Plan).GetEnumValues();
                 ViewBag.Plans = (Plan[])plans;
 
+                Array metrics = typeof(Metric).GetEnumValues();
+                input.Metrics = (Metric[])metrics;
+
                 input.Types = await equipmentService.GetTypesAsync();
                 return View(input);
             }
@@ -130,6 +144,7 @@ namespace WorkoutPlanSite.Controllers
                 Name = input.Name,
                 Weight = input.Weight,
                 Plan = input.Plan,
+                Metric = input.Metric,
                 TypeId = input.TypeId,
                 ImageUrl = input.ImageUrl
             };
