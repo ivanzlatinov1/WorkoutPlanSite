@@ -46,6 +46,7 @@ namespace WorkoutPlanSite.Controllers
             IEnumerable<EquipmentViewModel> views = equipments.Select(e => new EquipmentViewModel
             {
                 Plan = e.Plan.ToString(),
+                Metric = e.Metric.ToString(),
                 Id = e.Id,
                 Name = e.Name,
                 Weight = e.Weight,
